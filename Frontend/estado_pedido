@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estado de tu Pedido | QuickIsland</title>
+    <link rel="stylesheet" href="Css/cliente_bakerystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            position: relative;
+        }
+        .step {
+            text-align: center;
+            z-index: 2;
+            flex: 1;
+            opacity: 0.3;
+            transition: 0.5s;
+        }
+        .step.active { opacity: 1; color: #f1c40f; }
+        .step i {
+            font-size: 2rem;
+            background: #222;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid #444;
+        }
+        .step.active i { border-color: #f1c40f; box-shadow: 0 0 15px #f1c40f; }
+        
+        /* Línea conectora */
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 30px; left: 10%; width: 80%;
+            height: 2px; background: #333; z-index: 1;
+        }
+    </style>
+</head>
+<body id="cuerpoDinamico">
+
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+        <div class="card-blur" style="width: 90%; max-width: 600px; padding: 40px; text-align: center;">
+            <h2 style="color: #f1c40f;">Seguimiento de Orden</h2>
+            <p>Folio: <span id="folioNum" style="font-weight: bold;">#---</span></p>
+
+            <div class="stepper">
+                <div class="step" id="step-espera">
+                    <i class="fas fa-clock"></i>
+                    <p>En espera</p>
+                </div>
+                <div class="step" id="step-preparando">
+                    <i class="fas fa-utensils"></i>
+                    <p>Preparando</p>
+                </div>
+                <div class="step" id="step-listo">
+                    <i class="fas fa-check-double"></i>
+                    <p>¡Listo!</p>
+                </div>
+            </div>
+
+            <div id="mensajeEstado" style="margin: 20px 0; font-size: 1.2rem; font-weight: bold;">
+                Estamos recibiendo tu pedido...
+            </div>
+
+            <button id="btnConfirmarRecibido" class="btn-comprar" disabled 
+                    style="width: 100%; background: #555; cursor: not-allowed;" onclick="finalizarTodo()">
+                CONFIRMAR RECIBIDO
+            </button>
+        </div>
+    </div>
+
+    <script src="Js/seguimiento.js"></script>
+</body>
+</html>
