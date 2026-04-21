@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumen de Compra | QuickIsland Coffee</title>
+    <link rel="stylesheet" href="Css/cliente_bakerystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 40px;
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .item-info h4 { margin: 0; color: #f1c40f; }
+        .item-info span { font-size: 0.8rem; opacity: 0.6; }
+        .qty-controls { display: flex; align-items: center; gap: 15px; }
+        .qty-btn {
+            background: none; border: 1px solid #f1c40f; color: #f1c40f;
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+        }
+        .btn-finalizar {
+            background: #f1c40f; color: black; border: none;
+            padding: 20px; width: 100%; border-radius: 12px;
+            font-weight: bold; font-size: 1.2rem; cursor: pointer;
+            margin-top: 30px; transition: 0.3s;
+        }
+        .btn-finalizar:hover { background: #d4ac0d; transform: scale(1.02); }
+    </style>
+</head>
+<body style="background: #121212; color: white;">
+
+    <div class="glass-container">
+        <h1 style="text-align: center; color: #f1c40f; letter-spacing: 3px;">TU PEDIDO</h1>
+        
+        <div id="lista-pedido">
+            </div>
+
+        <div style="margin-top: 30px; text-align: right;">
+            <h2 id="gran-total" style="font-size: 2.5rem;">Total: $0.00</h2>
+        </div>
+
+        <button class="btn-finalizar" onclick="procesarVenta()">
+            <i class="fas fa-check-circle"></i> CONFIRMAR Y PAGAR
+        </button>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="seleccionarisla.html" style="color: #f1c40f; text-decoration: none;">← Seguir comprando</a>
+        </p>
+    </div>
+
+    <script src="Js/carrito_logica.js"></script>
+</body>
+</html>
