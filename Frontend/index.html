@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickIsland | Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/Style_master.css">
+</head>
+<body>
+
+    <div class="login-card">
+        <h2 style="margin-bottom: 10px;">QuickIsland-Coffee</h2>
+        
+        <div class="switch-container">
+            <span class="role-label" id="label-cliente">Cliente</span>
+            <label class="switch">
+                <input type="checkbox" id="roleToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="role-label" id="label-gestor" style="opacity: 0.5;">Gestor</span>
+        </div>
+
+        <form id="loginForm">
+            <input type="text" id="userName" class="input-box" placeholder="Usuario / Correo" required>
+            <input type="password" id="userPass" class="input-box" placeholder="Contraseña / PIN" required>
+            
+            <button type="submit" class="btn-entrar">ENTRAR AL SISTEMA</button>
+        </form>
+
+        <p style="margin-top: 25px; font-size: 0.75rem; opacity: 0.5;">QuickIsland Coffee © 2026</p>
+    </div>
+      <div class="cart-floating-btn" onclick="location.href='carrito_resumen.html'">
+         <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="badge">0</span>
+      </div>
+
+    <script src="Js/login.js"></script>
+</body>
+</html>
