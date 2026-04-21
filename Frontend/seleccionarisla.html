@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickIsland | Selección de Isla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/dashboard.css">
+    <style>
+        /* Estilos para que el buscador se vea pro sin romper tu CSS actual */
+        .search-wrapper {
+            position: relative;
+            margin: 20px 0;
+            max-width: 500px;
+            z-index: 100;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-bar:focus { border-color: #f1c40f; background: rgba(255, 255, 255, 0.1); }
+        
+        .results-box {
+            display: none;
+            position: absolute;
+            top: 55px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 10px;
+            border: 1px solid #333;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .result-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #222;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .result-item:hover { background: rgba(241, 196, 15, 0.1); }
+        .result-item b { color: #f1c40f; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div style="font-size: 1.5rem; cursor: pointer;">🏠</div>
+        <div style="font-size: 1.5rem; cursor: pointer; opacity: 0.5;">🛒</div>
+        <div style="font-size: 1.5rem; cursor: pointer; opacity: 0.5;">⭐</div>
+        <div style="font-size: 1.5rem; cursor: pointer; opacity: 0.5;">⚙️</div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1 style="font-size: 2rem;">Hola, <span id="userGreeting">AngelRodriguez</span> 👋</h1>
+            <p style="opacity: 0.8;">¿Qué se antoja comer hoy?</p>
+
+            <div class="search-wrapper">
+                <i class="fas fa-search" style="position: absolute; left: 15px; top: 15px; color: #f1c40f;"></i>
+                <input type="text" class="search-bar" id="inputBusquedaCliente" 
+                       placeholder="Busca un producto (Tacos, Frappé...)" 
+                       onkeyup="buscarGlobalCliente(this.value)">
+                <div id="resultadosBusqueda" class="results-box"></div>
+            </div>
+        </header>
+
+        <section class="hero-slider" id="heroSlider">
+            <div style="position: relative; z-index: 10;">
+                <span style="background: #f1c40f; color: black; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.7rem;">RECOMENDACIÓN</span>
+                <h2 id="promoTitle" style="font-size: 2.8rem; margin: 10px 0;">Cargando...</h2>
+                <p id="promoDesc" style="font-size: 1.1rem; margin-bottom: 20px;">Los mejores sabores de QuickIsland.</p>
+                <button style="padding: 12px 35px; background: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: #4b3621;">VER MENÚ</button>
+            </div>
+        </section>
+
+        <h3>Nuestras 8 Islas</h3>
+        
+        <div class="islas-grid">
+            <div class="isla-card" onclick="irAIsla(1)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla1bg.jpg');"></div>
+                <div class="isla-content"><h4>La Tiendita</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● DISPONIBLE</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(2)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla2bg.jpg');"></div>
+                <div class="isla-content"><h4>Deli Sandwiches</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● DISPONIBLE</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(3)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla3bg.jpg');"></div>
+                <div class="isla-content"><h4>Gorditas</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● DISPONIBLE</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(4)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla4bg.jpg');"></div>
+                <div class="isla-content"><h4>Churros</h4><div style="color: #ff0000; font-size: 0.7rem; font-weight: bold;">● Cerrado</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(5)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla5bg.jpg');"></div>
+                <div class="isla-content"><h4>QUECAS 2</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● Disponible</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(6)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla6bg.jpg');"></div>
+                <div class="isla-content"><h4>Comida Corrida</h4><div style="color: #ff0000; font-size: 0.7rem; font-weight: bold;">● Cerrado</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(7)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla7bg.jpg');"></div>
+                <div class="isla-content"><h4>Agua Fresca</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● Disponible</div></div>
+            </div>
+
+            <div class="isla-card" onclick="irAIsla(8)">
+                <div class="isla-bg" style="background-image: url('../InterfazV2/Images/isla8bg.jpg');"></div>
+                <div class="isla-content"><h4>Pizza & Drinks</h4><div style="color: #2ecc71; font-size: 0.7rem; font-weight: bold;">● DISPONIBLE</div></div>
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <p style="font-weight: 600;">QuickIsland Coffee © 2026</p>
+            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 5px;">Desarrollado para Gestión de Calidad</p>
+        </footer>
+    </main>
+
+    <script src="Js/dashboard.js"></script>
+</body>
+</html>
