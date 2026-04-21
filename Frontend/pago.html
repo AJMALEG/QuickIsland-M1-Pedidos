@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Pago | QuickIsland Coffee</title>
+    <link rel="stylesheet" href="Css/cliente_bakerystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .pago-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .glass-pago {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .metodos-pago {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .metodo-item {
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0.5;
+        }
+
+        .metodo-item input { display: none; }
+
+        .metodo-item:has(input:checked) {
+            opacity: 1;
+            transform: scale(1.1);
+            color: #f1c40f;
+        }
+
+        .input-pago {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .input-pago:focus { border-color: #f1c40f; }
+    </style>
+</head>
+<body id="cuerpoDinamico"> <div class="pago-wrapper">
+        <div class="glass-pago">
+            <h1 style="color: #f1c40f; margin-bottom: 10px;">Finalizar Pedido</h1>
+            <p style="opacity: 0.7;">Selecciona tu forma de pago</p>
+
+            <div class="metodos-pago">
+                <label class="metodo-item">
+                    <input type="radio" name="metodo" value="efectivo" checked onchange="toggleTarjeta(false)">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                    <p>Efectivo</p>
+                </label>
+                <label class="metodo-item">
+                    <input type="radio" name="metodo" value="tarjeta" onchange="toggleTarjeta(true)">
+                    <i class="fas fa-credit-card fa-2x"></i>
+                    <p>Tarjeta</p>
+                </label>
+            </div>
+
+            <div id="form-tarjeta" style="display: none; margin-top: 20px;">
+                <input type="text" class="input-pago" placeholder="Número de Tarjeta">
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" class="input-pago" placeholder="MM/AA">
+                    <input type="text" class="input-pago" placeholder="CVV">
+                </div>
+            </div>
+
+            <button class="btn-comprar" id="btnConfirmar" onclick="confirmarYEnviarAlGestor()" style="width: 100%; margin-top: 20px; padding: 15px;">
+                CONFIRMAR Y ENVIAR ORDEN
+            </button>
+
+            <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">
+                Al confirmar, tu pedido aparecerá en la barra de la isla.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Cargar fondo dinámico (opcional, para que se vea igual que la isla)
+        document.addEventListener('DOMContentLoaded', () => {
+            const islaId = localStorage.getItem('isla_seleccionada') || '1';
+            document.body.style.backgroundImage = `url('Images/isla${islaId}bg.jpg')`;
+        });
+
+        function toggleTarjeta(show) {
+            document.getElementById('form-tarjeta').style.display = show ? 'block' : 'none';
+        }
+
+        async function confirmarYEnviarAlGestor() {
+    const carrito = JSON.parse(localStorage.getItem('qi_carrito'));
+    const metodo = document.querySelector('input[name="metodo"]:checked').value;
+    const btn = document.getElementById('btnConfirmar');
+
+    // Recuperamos el ID que guardamos en el login
+    const idUsuarioReal = localStorage.getItem('quicksiland_user_id');
+
+    if (!idUsuarioReal) {
+        alert("Error: Sesión no encontrada. Por favor inicia sesión de nuevo.");
+        window.location.href = 'index.html';
+        return;
+    }
+
+    if (!carrito || carrito.length === 0) return alert("Carrito vacío.");
+
+    btn.disabled = true;
+    btn.innerText = "ENVIANDO A BARRA...";
+
+    try {
+        const res = await fetch('Php/procesar_pedido.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            // ESTRUCTURAMOS EL JSON COMO LO PIDE EL PHP
+            body: JSON.stringify({
+                id_cliente: idUsuarioReal,
+                items: carrito
+            }) 
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            localStorage.setItem('ultimo_pedido_id', data.folio);
+            localStorage.removeItem('qi_carrito');
+            alert("¡Pedido enviado con éxito!");
+            window.location.href = 'estado_pedido.html';
+        } else {
+            alert("Error: " + data.message);
+            btn.disabled = false;
+            btn.innerText = "CONFIRMAR Y ENVIAR ORDEN";
+        }
+    } catch (e) {
+        console.error(e);
+        alert("Error de conexión.");
+        btn.disabled = false;
+    }
+}
+    </script>
+</body>
+</html>
