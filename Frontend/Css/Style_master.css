@@ -1,0 +1,106 @@
+/* css/Style_master.css */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --btn-gradient: linear-gradient(to right, #8eb50c, #27ae60);
+    --accent-orange: #f39c12;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../Images/nuevobg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+.login-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 50px 40px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+}
+
+/* --- ESTILO DEL SWITCH (BOTON ON/OFF) --- */
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255,255,255,0.2);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px; width: 22px;
+    left: 4px; bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider { background-color: var(--accent-orange); }
+input:checked + .slider:before { transform: translateX(30px); }
+
+.role-label { font-size: 0.85rem; font-weight: 600; min-width: 80px; }
+/* --------------------------------------------------------- */
+
+.input-box {
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.btn-entrar {
+    width: 100%;
+    padding: 16px;
+    background: var(--btn-gradient);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-entrar:hover { transform: scale(1.02); }
