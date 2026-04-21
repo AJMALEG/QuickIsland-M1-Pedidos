@@ -1,0 +1,128 @@
+/* css/dashboard.css - DISEÑO UNIFICADO */
+:root {
+    --accent-orange: #f39c12;
+    --text-white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /* AQUÍ CAMBIAS TU FONDO */
+    background: url('../Images/homecoffee.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    color: var(--text-white);
+    margin: 0;
+    display: flex;
+    overflow-x: hidden;
+}
+
+/* Sidebar Estilizado */
+.sidebar {
+    width: 80px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    gap: 30px;
+    position: fixed;
+    left: 0; top: 0;
+    z-index: 100;
+    border-right: 1px solid var(--glass-border);
+}
+
+/* Contenedor de Contenido */
+.main-content {
+    margin-left: 80px;
+    flex: 1;
+    min-height: 100vh;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background: rgba(0, 0, 0, 0.3); /* Capa de contraste */
+}
+
+/* Panel de Recomendación Compacto */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    border: 1px solid var(--glass-border);
+    transition: 0.8s ease;
+}
+
+.hero-slider::before {
+    content: '';
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.4);
+}
+
+/* Grid de Islas */
+.islas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.isla-card {
+    position: relative;
+    height: 220px;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.isla-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5) blur(2px);
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.isla-card:hover .isla-bg {
+    filter: brightness(0.7) blur(0px);
+    transform: scale(1.1);
+}
+
+.isla-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Footer */
+.main-footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    border-radius: 20px;
+}
