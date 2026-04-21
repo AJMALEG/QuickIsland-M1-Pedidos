@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickIsland | Panel Gestor</title>
+    <link rel="stylesheet" href="Css/admin_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="sidebar-admin">
+        <div class="logo-admin">QI</div>
+        <div class="nav-item active" onclick="showTab('tab-altas', this)" title="Altas de Productos">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="nav-item" onclick="showTab('tab-bajas', this)" title="Gestión de Inventario">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+        <div class="nav-item" onclick="showTab('tab-pedidos', this)" title="Monitor de Pedidos">
+            <i class="fas fa-utensils"></i>
+        </div>
+        <div class="nav-logout" onclick="window.location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+    </nav>
+
+    <main class="admin-main-content">
+        <header>
+            <h1>Panel: <span id="nombreIslaDisplay" style="color: #f1c40f;">...</span></h1>
+            <p>Bienvenido, <span id="adminNameDisplay" style="font-weight: bold; color: #2ecc71;">Cargando...</span></p>
+            <p style="font-size: 0.9rem; opacity: 0.7;">Gestión de Inventario y Pedidos</p>
+        </header>
+
+        <section id="tab-altas" class="admin-tab active">
+            <div class="main-content-grid">
+                <div class="card">
+                    <h3><i class="fas fa-upload"></i> Registrar Producto</h3>
+                    <form id="formRegistro">
+                        <div class="input-group">
+                            <label>Nombre:</label>
+                            <input type="text" id="prodNombre" placeholder="Nombre del producto" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Descripción:</label>
+                            <textarea id="prodDesc" placeholder="Ingredientes o detalles..." style="width:100%; height:80px; background:#222; color:white; border-radius:8px; padding:10px; border:1px solid #444; margin-top:5px; font-family: inherit;"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label>Precio ($):</label>
+                            <input type="number" id="prodPrecio" step="0.01" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Stock inicial:</label>
+                            <input type="number" id="prodStock" required>
+                        </div>
+                        <button type="submit" class="btn-insert">EJECUTAR INSERT</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> Vista Previa</h3>
+                    <table class="data-table">
+                        <thead><tr><th>ID</th><th>Producto</th><th>Precio</th><th>Stock</th></tr></thead>
+                        <tbody id="tablaInventarioAltas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-bajas" class="admin-tab">
+            <div class="card">
+                <h3><i class="fas fa-eraser"></i> Eliminar Productos</h3>
+                <p style="opacity: 0.6; font-size: 0.8rem; margin-bottom: 15px;">Seleccione el producto que desea retirar del menú permanentemente.</p>
+                <table class="data-table">
+                    <thead><tr><th>ID</th><th>Producto</th><th>Precio</th><th>Acción</th></tr></thead>
+                    <tbody id="tablaInventarioBajas"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-pedidos" class="admin-tab">
+            <div class="card">
+                <h3><i class="fas fa-bell"></i> Monitor de Pedidos en Barra</h3>
+                
+                <div class="search-container" style="margin: 20px 0; display: flex; align-items: stretch; gap: 0; background: rgba(0,0,0,0.3); border: 1px solid #444; border-radius: 8px; overflow: hidden;">
+    
+    <div style="padding: 12px 15px; color: #777; display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.05);">
+        <i class="fas fa-search"></i>
+    </div>
+
+    <input type="text" id="inputBusquedaPedido" placeholder="Buscar por Cliente o Folio..." 
+           style="flex: 1; padding: 12px; background: transparent; border: none; color: white; outline: none; font-size: 0.9rem;">
+
+    <button onclick="limpiarBusqueda()" 
+            style="padding: 0 20px; background: rgba(255,255,255,0.05); border: none; border-left: 1px solid #444; color: #aaa; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: bold; transition: 0.3s; text-transform: uppercase;">
+        <i class="fas fa-times"></i> Limpiar
+    </button>
+</div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPedidosBarra">
+                        </tbody>
+                </table>
+
+                <div id="mensajeColaContenedor"></div>
+
+                <div id="contenedor-logs" class="logs-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="Js/admin_completo.js"></script>
+    <script src="Js/seguridad_inventario.js"></script>
+</body>
+</html>
