@@ -1,0 +1,42 @@
+.grid-bakery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-producto {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card-producto:hover {
+    border-color: #f1c40f;
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.precio {
+    display: block;
+    font-size: 1.5rem;
+    color: #f1c40f;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.btn-comprar {
+    background: #f1c40f;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
