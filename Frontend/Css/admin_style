@@ -1,0 +1,101 @@
+:root {
+    --primary: #2ecc71; --accent: #f1c40f; --bg: #121212;
+}
+
+body {
+    margin: 0; font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../Images/nuevobg.jpg') no-repeat center center fixed;
+    background-size: cover; color: white; display: flex;
+}
+
+/* SIDEBAR FIJA */
+.sidebar-admin {
+    width: 80px; height: 100vh; position: fixed; left: 0; top: 0;
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    display: flex; flex-direction: column; align-items: center; padding: 20px 0;
+}
+
+.logo-admin { font-weight: bold; color: var(--accent); margin-bottom: 40px; }
+
+.nav-item {
+    font-size: 1.5rem; color: #666; margin: 20px 0; cursor: pointer; transition: 0.3s;
+}
+
+.nav-item.active, .nav-item:hover { color: var(--accent); transform: scale(1.2); }
+
+.nav-logout { margin-top: auto; color: #e74c3c; cursor: pointer; }
+
+/* CONTENIDO PRINCIPAL */
+.admin-main-content {
+    margin-left: 80px; width: calc(100% - 80px); padding: 40px; box-sizing: border-box;
+}
+
+/* PESTAÑAS */
+.admin-tab { display: none; animation: fadeIn 0.3s; }
+.admin-tab.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* GRID DE ALTAS */
+.main-content-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+
+.card {
+    background: rgba(255,255,255,0.05); border-radius: 15px; padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+}
+
+/* TABLAS Y FORMULARIOS */
+.data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.data-table th { color: var(--accent); text-align: left; padding: 10px; border-bottom: 1px solid #444; }
+.data-table td { padding: 10px; border-bottom: 1px solid #222; }
+
+input, .select-admin {
+    width: 100%; padding: 10px; margin-top: 5px; background: #222; border: 1px solid #444; color: white; border-radius: 5px;
+}
+
+.btn-insert {
+    width: 100%; padding: 12px; background: var(--primary); border: none; color: white;
+    font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 15px;
+}
+
+.info-isla { background: rgba(241,196,15,0.1); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; border: 1px dashed var(--accent); }
+
+.tag { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+.tag.preparando { background: #3498db; } .tag.listo { background: var(--primary); } .tag.cancelado { background: #e74c3c; }
+
+.logs-container { margin-top: 20px; background: black; height: 150px; overflow-y: auto; padding: 10px; font-family: monospace; font-size: 12px; }
+
+.data-table tr {
+    transition: all 0.4s ease;
+}
+
+/* Efecto de fila deshabilitada para pedidos entregados */
+tr[style*="grayscale"] {
+    border-left: 5px solid #777;
+}
+
+.data-table select {
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.data-table select:hover {
+    border-color: #f1c40f;
+}
+
+#tablaPedidosBarra tr {
+    transition: all 0.5s ease-in-out;
+}
+
+/* Animación para que las filas nuevas "entren" con suavidad */
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#tablaPedidosBarra tr:first-child {
+    animation: fadeInRow 0.4s ease-out;
+}
